@@ -49,6 +49,15 @@ namespace Examen_2_Progra_3.Controllers
         public IActionResult Create()
         {
             ViewData["MetaId"] = new SelectList(_context.Metas, "Id", "Titulo");
+
+            ViewData["Estado"] = new SelectList(Enum.GetValues(typeof(EstadoTarea))
+                .Cast<EstadoTarea>()
+                .Select(e => new { Id = e, Name = e.ToString() }), "Id", "Name");
+
+            ViewData["Dificultad"] = new SelectList(Enum.GetValues(typeof(Dificultad))
+                .Cast<Dificultad>()
+                .Select(d => new { Id = d, Name = d.ToString() }),"Id", "Name");
+
             return View();
         }
 

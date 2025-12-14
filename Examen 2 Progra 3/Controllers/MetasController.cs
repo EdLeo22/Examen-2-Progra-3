@@ -46,6 +46,17 @@ namespace Examen_2_Progra_3.Controllers
         // GET: Metas/Create
         public IActionResult Create()
         {
+            ViewData["Categoria"] = new SelectList(Enum.GetValues(typeof(CategoriaMeta))
+                .Cast<CategoriaMeta>()
+                .Select(c => new { Id = c, Name = c.ToString() }),"Id", "Name");
+
+            ViewData["Prioridad"] = new SelectList(Enum.GetValues(typeof(Prioridad))
+                    .Cast<Prioridad>().Select(p => new { Id = p, Name = p.ToString() }), "Id", "Name");
+
+            ViewData["Estado"] = new SelectList( Enum.GetValues(typeof(EstadoMeta))
+                    .Cast<EstadoMeta>()
+                    .Select(e => new { Id = e, Name = e.ToString() }),"Id", "Name");
+
             return View();
         }
 
