@@ -14,7 +14,7 @@
         {
             base.OnModelCreating(modelBuilder);
 
-            // Ejemplo: eliminar en cascada (si borras una Meta, borra sus Tareas)
+            // Elimina en cascada (si se borra una Meta, borra sus Tareas)
             modelBuilder.Entity<Meta>()
                 .HasMany(m => m.Tareas)
                 .WithOne(t => t.Meta)

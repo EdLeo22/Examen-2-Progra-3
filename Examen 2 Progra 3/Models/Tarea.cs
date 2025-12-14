@@ -24,7 +24,7 @@
         [Required]
         public Dificultad Dificultad { get; set; } = Dificultad.Media;
 
-        // Tiempo estimado en horas (puede ser decimal si quieres)
+        // Tiempo estimado en horas
         [Range(0, 1000)]
         public double TiempoEstimadoHoras { get; set; }
 
