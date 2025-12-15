@@ -174,12 +174,29 @@ namespace Examen_2_Progra_3.Controllers
             if (meta.Estado != EstadoMeta.Completada)
             {
                 ModelState.AddModelError("", "Solo puede eliminar metas se encuentren completadas");
-            
+
                 return View(meta);
             }
 
             _context.Metas.Remove(meta);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Completar(int id)
+        {
+            var meta = await _context.Metas.FindAsync(id);
+            if (meta == null)
+            {
+                return NotFound();
+            }
+
+            meta.Estado = EstadoMeta.Completada;
+            _context.Update(meta);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

@@ -195,23 +195,6 @@ namespace Examen_2_Progra_3.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Completar(int id)
-        {
-            var tarea = await _context.Tareas.FindAsync(id);
-            if (tarea == null)
-            {
-                return NotFound();
-            }
-
-            tarea.Estado = EstadoTarea.Completada;
-            _context.Update(tarea);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool TareaExists(int id)
         {
             return _context.Tareas.Any(e => e.Id == id);
