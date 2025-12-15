@@ -107,10 +107,33 @@ namespace Examen_2_Progra_3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,FechaCreacion,FechaLimite,Estado,Dificultad,TiempoEstimadoHoras,MetaId")] Tarea tarea)
         {
+            if (!ModelState.IsValid)
+            {
+                foreach (var entry in ModelState)
+                {
+                    foreach (var error in entry.Value.Errors)
+                    {
+                        Console.WriteLine($"{entry.Key}: {error.ErrorMessage}");
+                    }
+                }
+            }
+
             if (id != tarea.Id)
             {
                 return NotFound();
             }
+
+            var tareaExistente = await _context.Tareas
+                .AsNoTracking()
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
+            if(tareaExistente == null)
+            {
+                return NotFound();
+            }
+
+            //para que se mantenga la fecha original donde se creo la tarea
+            tarea.FechaCreacion = tareaExistente.FechaCreacion;
 
             if (ModelState.IsValid)
             {

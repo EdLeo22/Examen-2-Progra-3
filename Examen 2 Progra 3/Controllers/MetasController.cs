@@ -85,10 +85,17 @@ namespace Examen_2_Progra_3.Controllers
             }
 
             var meta = await _context.Metas.FindAsync(id);
+
             if (meta == null)
             {
                 return NotFound();
             }
+
+            //se cargan las listas desplegables
+            ViewData["Categoria"] = new SelectList(Enum.GetValues(typeof(CategoriaMeta)), meta.Categoria);
+            ViewData["Prioridad"] = new SelectList(Enum.GetValues(typeof(Prioridad)), meta.Prioridad);
+            ViewData["Estado"] = new SelectList(Enum.GetValues(typeof(EstadoMeta)), meta.Estado);
+
             return View(meta);
         }
 
@@ -124,6 +131,12 @@ namespace Examen_2_Progra_3.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            //se recargan las listas desplegables en caso de error
+            ViewData["Categoria"] = new SelectList(Enum.GetValues(typeof(CategoriaMeta)), meta.Categoria);
+            ViewData["Prioridad"] = new SelectList(Enum.GetValues(typeof(Prioridad)), meta.Prioridad);
+            ViewData["Estado"] = new SelectList(Enum.GetValues(typeof(EstadoMeta)), meta.Estado);
+
             return View(meta);
         }
 
@@ -151,11 +164,21 @@ namespace Examen_2_Progra_3.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var meta = await _context.Metas.FindAsync(id);
+
             if (meta != null)
             {
                 _context.Metas.Remove(meta);
             }
 
+            // validación para solo eliminar metas que estén completadas
+            if (meta.Estado != EstadoMeta.Completada)
+            {
+                ModelState.AddModelError("", "Solo puede eliminar metas se encuentren completadas");
+            
+                return View(meta);
+            }
+
+            _context.Metas.Remove(meta);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

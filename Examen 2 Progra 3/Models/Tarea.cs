@@ -1,5 +1,6 @@
 ﻿namespace Examen_2_Progra_3.Models
 {
+    using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,6 +31,7 @@
 
         // FK a Meta
         public int MetaId { get; set; }
+        [ValidateNever]
         public Meta Meta { get; set; } = default!;
     }
 }
