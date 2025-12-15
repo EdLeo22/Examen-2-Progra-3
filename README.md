@@ -1,9 +1,9 @@
 # 2 Examen de Programación III#  
-##Universidad Americana (UAM)##  
-###Carrera: Ingeniería en Sistemas###  
+**Universidad Americana (UAM)**    
+**Carrera: Ingeniería en Sistemas**  
 Profesor: Andrey Mauricio Padias Calvo  
-  
-Estudiantes:  
+
+Estudiantes:**  
   Eduardo Duarte Vega  
   Edisson Salgado Mendoza  
   Abigail Gaitán Martínez  
