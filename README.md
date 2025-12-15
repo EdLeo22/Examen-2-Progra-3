@@ -3,7 +3,7 @@
 **Carrera: Ingeniería en Sistemas**  
 Profesor: Andrey Mauricio Padias Calvo  
 
-Estudiantes:**  
+**Estudiantes:**  
   Eduardo Duarte Vega  
   Edisson Salgado Mendoza  
   Abigail Gaitán Martínez  
