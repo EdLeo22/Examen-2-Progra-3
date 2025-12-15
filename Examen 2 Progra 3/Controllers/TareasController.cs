@@ -70,6 +70,8 @@ namespace Examen_2_Progra_3.Controllers
         {
             try
             {
+                tarea.FechaCreacion = DateTime.UtcNow;
+
                 _context.Add(tarea);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -167,6 +169,23 @@ namespace Examen_2_Progra_3.Controllers
             }
 
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Completar(int id)
+        {
+            var tarea = await _context.Tareas.FindAsync(id);
+            if (tarea == null)
+            {
+                return NotFound();
+            }
+
+            tarea.Estado = EstadoTarea.Completada;
+            _context.Update(tarea);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
